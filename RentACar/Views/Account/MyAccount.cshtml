@@ -1,0 +1,17 @@
+﻿@model RentACar.Models.MyAccountViewModel
+
+@{
+    ViewData["Title"] = "My Account";
+}
+
+<h2>My Account</h2>
+<div class="form-group">
+    <label class="font-weight-bold">Name:</label>
+    <p>@Model.Ime</p>
+    <label class="font-weight-bold">Surname:</label>
+    <p>@Model.Prezime</p>
+    <label class="font-weight-bold">Email:</label>
+    
+    <p>@Model.Email</p>
+</div>
+<!-- Add other user information as needed -->

@@ -1,0 +1,162 @@
+﻿@model RentACar.Models.Vozilo
+
+<h1>Create New Vehicle</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-6">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            
+            <div class="form-group">
+                <label asp-for="Proizvodjac" class="control-label">Manufacturer:</label>
+                <input asp-for="Proizvodjac" class="form-control" />
+                <span asp-validation-for="Proizvodjac" class="text-danger"></span>
+            </div>
+            
+            <div class="form-group">
+                <label asp-for="Model" class="control-label">Model:</label>
+                <input asp-for="Model" class="form-control" />
+                <span asp-validation-for="Model" class="text-danger"></span>
+            </div>
+            
+            <div class="form-group">
+                <label asp-for="Cijena" class="control-label">Price:</label>
+                <input asp-for="Cijena" class="form-control" />
+                <span asp-validation-for="Cijena" class="text-danger"></span>
+            </div>
+            
+            <div class="form-group">
+                <label asp-for="Slika" class="control-label">Image URL:</label>
+                <input asp-for="Slika" class="form-control" />
+                <span asp-validation-for="Slika" class="text-danger"></span>
+            </div>
+            
+            <div class="form-group">
+                <label asp-for="Opis" class="control-label">Description:</label>
+                <textarea asp-for="Opis" class="form-control"></textarea>
+                <span asp-validation-for="Opis" class="text-danger"></span>
+            </div>
+            
+            <div class="form-group">
+                <label asp-for="Tip" class="control-label">Type:</label>
+                <select asp-for="Tip" class="form-control">
+                    <option value="GENERALNO">General</option>
+                    <option value="PUTNICKO">Passenger</option>
+                    <option value="TRANSPORTNO">Transport</option>
+                </select>
+                <span asp-validation-for="Tip" class="text-danger"></span>
+            </div>
+            
+            <div class="form-group">
+                <label asp-for="Transmisija" class="control-label">Transmission:</label>
+                <select asp-for="Transmisija" class="form-control">
+                    <option value="MANUELNI">Manual</option>
+                    <option value="AUTOMATIK">Automatic</option>
+                </select>
+                <span asp-validation-for="Transmisija" class="text-danger"></span>
+            </div>
+            
+            <div class="form-group">
+                <label asp-for="Gorivo" class="control-label">Fuel Type:</label>
+                <select asp-for="Gorivo" class="form-control">
+                    <option value="BENZIN">Petrol</option>
+                    <option value="DIZEL">Diesel</option>
+                    <option value="HIBRID">Hybrid</option>
+                </select>
+                <span asp-validation-for="Gorivo" class="text-danger"></span>
+            </div>
+            
+            <div class="form-group">
+                <label asp-for="RegistarskeTablice" class="control-label">License Plates:</label>
+                <input asp-for="RegistarskeTablice" class="form-control" />
+                <span asp-validation-for="RegistarskeTablice" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="MaticnaPoslovnicaId" class="control-label">Branch Office ID:</label>
+                <input asp-for="MaticnaPoslovnicaId" class="form-control" />
+                <span asp-validation-for="MaticnaPoslovnicaId" class="text-danger"></span>
+            </div>
+
+            
+            <div class="form-group">
+                <label asp-for="Dostupno" class="control-label">Available:</label>
+                <input asp-for="Dostupno" type="checkbox" />
+                <span asp-validation-for="Dostupno" class="text-danger"></span>
+            </div>
+            
+            <div class="form-group">
+                <label asp-for="PutnickoVozilo_Tip" class="control-label">Passenger Vehicle Type:</label>
+                <select asp-for="PutnickoVozilo_Tip" class="form-control">
+                    <option value="">Select Passenger Vehicle Type</option>
+                    <option value="LIMUZINA">Limousine</option>
+                    <option value="KARAVAN">Wagon</option>
+                    <option value="SUV">SUV</option>
+                    <option value="PICKUP">Pickup</option>
+                    <option value="KUPE">Coupe</option>
+                </select>
+                <span asp-validation-for="PutnickoVozilo_Tip" class="text-danger"></span>
+            </div>
+            
+            <div class="form-group">
+                <label asp-for="BrojSjedista" class="control-label">Number of Seats:</label>
+                <input asp-for="BrojSjedista" class="form-control" />
+                <span asp-validation-for="BrojSjedista" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="Tempomat" class="control-label">Tempomat:</label>
+                <input id="Tempomat" name="Tempomat" class="form-check-input" type="checkbox" value="true" />
+                <input type="hidden" name="Tempomat" value="false" />
+                <span asp-validation-for="Tempomat" class="text-danger"></span>
+            </div>
+
+
+
+            
+            <div class="form-group">
+                <label asp-for="TransportnoVozilo_Tip" class="control-label">Commercial Vehicle Type:</label>
+                <select asp-for="TransportnoVozilo_Tip" class="form-control">
+                    <option value="">Select Commercial Vehicle Type</option>
+                    <option value="KOMBI">Van</option>
+                    <option value="KAMION">Truck</option>
+                    <option value="SLEPER">Semi-trailer</option>
+                </select>
+                <span asp-validation-for="TransportnoVozilo_Tip" class="text-danger"></span>
+            </div>
+            
+            <div class="form-group">
+                <label asp-for="Nosivost" class="control-label">Load Capacity:</label>
+                <input asp-for="Nosivost" class="form-control" />
+                <span asp-validation-for="Nosivost" class="text-danger"></span>
+            </div>
+
+            <div class="form-group"> 
+                <label asp-for="Duzina" class="control-label">Length:</label>
+                <input asp-for="Duzina" class="form-control" />
+                <span asp-validation-for="Duzina" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="Prikolica" class="control-label">Trailer:</label>
+                <input id="Prikolica" name="Prikolica" class="form-check-input" type="checkbox" value="true" />
+                <input type="hidden" name="Prikolica" value="false" />
+                <span asp-validation-for="Prikolica" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
+

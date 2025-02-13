@@ -1,0 +1,173 @@
+﻿@model RentACar.Models.Vozilo
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Car</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            padding: 20px;
+        }
+
+        h1 {
+            color: #007bff;
+        }
+
+        form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ced4da;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        button[type="submit"] {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+            button[type="submit"]:hover {
+                background-color: #0056b3;
+            }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Edit Car</h1>
+
+        <form asp-action="EditCar" method="post">
+            <div class="form-group">
+                <label for="Proizvodjac">Manufacturer:</label>
+                <input type="text" asp-for="Proizvodjac" class="form-control" />
+            </div>
+
+            <div class="form-group">
+                <label for="Model">Model:</label>
+                <input type="text" asp-for="Model" class="form-control" />
+            </div>
+
+            <div class="form-group">
+                <label for="Cijena">Price:</label>
+                <input type="number" asp-for="Cijena" class="form-control" />
+            </div>
+
+            <div class="form-group">
+                <label for="Slika">Image URL:</label>
+                <input type="text" asp-for="Slika" class="form-control" />
+            </div>
+
+            <div class="form-group">
+                <label for="Opis">Description:</label>
+                <input type="text" asp-for="Opis" class="form-control" />
+            </div>
+
+            <div class="form-group">
+                <label for="Tip">Vehicle Type:</label>
+                <select asp-for="Tip" asp-items="Html.GetEnumSelectList<RentACar.Models.TipVozila>()" class="form-control">
+                    <option value="">Select Vehicle Type</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="RegistarskeTablice">License Plates:</label>
+                <input type="text" asp-for="RegistarskeTablice" class="form-control" />
+            </div>
+
+            <div class="form-group">
+                <label for="Navigacija">Navigation:</label>
+                <input type="checkbox" asp-for="Navigacija" class="form-check-input" />
+            </div>
+
+            <div class="form-group">
+                <label for="Transmisija">Transmission:</label>
+                <select asp-for="Transmisija" asp-items="Html.GetEnumSelectList<RentACar.Models.Transmisija>()" class="form-control">
+                    <option value="">Select Transmission</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="Gorivo">Fuel Type:</label>
+                <select asp-for="Gorivo" asp-items="Html.GetEnumSelectList<RentACar.Models.VrstaGoriva>()" class="form-control">
+                    <option value="">Select Fuel Type</option>
+                </select>
+            </div>
+
+             <div class="form-group">
+                <label for="PutnickoVozilo_Tip">Passenger Vehicle Type:</label>
+                <select asp-for="PutnickoVozilo_Tip" asp-items="Html.GetEnumSelectList<RentACar.Models.PutnickiTip>()" class="form-control">
+                    <option value="">Select Passenger Vehicle Type</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="BrojSjedista">Number of Seats:</label>
+                <input type="number" asp-for="BrojSjedista" class="form-control" />
+            </div>
+
+            <div class="form-group">
+                <label for="Tempomat">Cruise Control:</label>
+                <select asp-for="Tempomat" class="form-control">
+                    <option value="">Select</option>
+                    <option value="true">Yes</option>
+                    <option value="false">No</option>
+                </select>
+            </div>
+
+
+            <div class="form-group">
+                <label for="TransportnoVozilo_Tip">Commercial Vehicle Type:</label>
+                <select asp-for="TransportnoVozilo_Tip" asp-items="Html.GetEnumSelectList<RentACar.Models.TransportniTip>()" class="form-control">
+                    <option value="">Select Commercial Vehicle Type</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="Nosivost">Payload Capacity:</label>
+                <input type="number" asp-for="Nosivost" class="form-control" />
+            </div>
+
+            <div class="form-group">
+                <label for="Duzina">Length:</label>
+                <input type="number" asp-for="Duzina" class="form-control" />
+            </div>
+
+            <div class="form-group">
+                <label for="Prikolica">Cruise Control:</label>
+                <select asp-for="Prikolica" class="form-control">
+                    <option value="">Select</option>
+                    <option value="true">Yes</option>
+                    <option value="false">No</option>
+                </select>
+            </div>
+
+
+            <button type="submit" class="btn btn-primary">Save</button>
+        </form>
+    </div>
+</body>
+</html>
+

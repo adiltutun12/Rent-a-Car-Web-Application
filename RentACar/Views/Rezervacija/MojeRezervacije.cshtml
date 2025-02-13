@@ -1,0 +1,107 @@
+﻿@model IEnumerable<RentACar.ViewModels.MojeRezervacijeViewModel>
+
+
+
+<h1>My Rents</h1>
+
+@if (TempData["SuccessMessageForMojeRezervacije"] != null)
+{
+    <div class="toast success" id="successToastForMojeRezervacije">
+        <span class="icon">✔️</span> @TempData["SuccessMessageForMojeRezervacije"]
+    </div>
+}
+
+@if (TempData["ErrorMessageForMojeRezervacije"] != null)
+{
+    <div class="toast error" id="errorToastForMojeRezervacije">
+        <span class="icon">❌</span> @TempData["ErrorMessageForMojeRezervacije"]
+    </div>
+}
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Vehicle</th>
+            <th>Pickup date</th>
+            <th>Return date</th>
+            <th>Total amount</th>
+            <th>Delivery</th>
+            <th>Cancellation</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Vozilo.Proizvodjac @item.Vozilo.Model</td>
+                <td>@item.Rezervacija.DatumPreuzimanja.ToString("dd.MM.yyyy HH:mm")</td>
+                <td>@item.Rezervacija.DatumPovratka.ToString("dd.MM.yyyy HH:mm")</td>
+                <td>@item.Rezervacija.Iznos $</td>
+                <td>@(item.Dostava != null ? item.Dostava.Adresa : "No delivery")</td>
+                <td>
+                    <form asp-action="OtkaziRezervaciju" method="post">
+                        <input type="hidden" name="id" value="@item.Rezervacija.Id" />
+                        <button type="submit" class="btn btn-danger">Cancel rent</button> 
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<style>
+    .toast {
+        position: fixed;
+        top: 20px; 
+        right: 20px;
+        z-index: 9999; 
+        display: flex;
+        align-items: center;
+        padding: 12px 20px;
+        border-radius: 8px;
+        font-family: Arial, sans-serif;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        transition: opacity 0.3s ease;
+    }
+
+    .toast.error {
+        background-color: lightpink;
+        color: #c7254e; /* Boja teksta za grešku */
+    }
+
+    .toast.success {
+        background-color: lightgreen;
+        color: #228B22; /* Boja teksta za uspjeh */
+    }
+
+    .toast .icon {
+        margin-right: 10px;
+        font-size: 20px;
+    }
+
+    .toast.show {
+        opacity: 1;
+    }
+</style>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const successToast = document.getElementById("successToastForMojeRezervacije");
+        const errorToast = document.getElementById("errorToastForMojeRezervacije");
+
+        if (successToast) {
+            successToast.classList.add("show");
+            setTimeout(() => {
+                successToast.classList.remove("show");
+            }, 8000);
+        }
+
+        if (errorToast) {
+            errorToast.classList.add("show");
+            setTimeout(() => {
+                errorToast.classList.remove("show");
+            }, 8000);
+        }
+    });
+</script>

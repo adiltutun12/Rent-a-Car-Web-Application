@@ -1,0 +1,97 @@
+﻿body {
+    font-family: 'Roboto', sans - serif;
+margin: 0;
+padding: 0;
+color: #333;
+}
+
+header {
+    background-color: #333;
+    color: #fff;
+    padding: 1rem 0;
+}
+
+.container {
+    max-width: 1200px;
+margin: 0 auto;
+padding: 0 1rem;
+}
+
+.search - filters {
+display: flex;
+    flex - direction: column;
+gap: 1rem;
+padding: 2rem 0;
+}
+
+    .search - filters input,
+    .search-filters select,
+    .search-filters button {
+        padding: 0.5rem;
+font - size: 1rem;
+    }
+
+    .search - filters button {
+        background-color: #ff5722;
+        color: #fff;
+        border: none;
+cursor: pointer;
+font - weight: bold;
+    }
+
+.cars - grid {
+display: flex;
+    flex - wrap: wrap;
+gap: 1rem;
+}
+
+.car - card {
+background: #f7f7f7;
+    padding: 1rem;
+    border - radius: 10px;
+width: calc(33.333 % -1rem);
+    box - shadow: 0 4px 8px rgba(0,0,0,0.1);
+display: flex;
+    flex - direction: column;
+    align - items: center;
+    text - decoration: none; /* Ensure no underline for links */
+color: inherit; /* Inherit color from parent */
+}
+
+.toast - success {
+    background - color: #28a745 !important;
+}
+
+    .toast - success.toast - title {
+    font - weight: bold;
+color: #ffffff !important;
+    }
+
+    .toast - success.toast - message {
+color: #ffffff !important;
+    }
+
+
+    .car - card img {
+        max-width: 100 %;
+border - radius: 10px;
+    }
+
+    .car - card h3 {
+        font-size: 1.25rem;
+margin: 0.5rem 0;
+    }
+
+    .car - card p {
+        font-size: 1rem;
+color: #666;
+    }
+
+a {
+    text-decoration: none;
+color: inherit;
+}
+
+    a: hover {
+    text - decoration: underline;
+}

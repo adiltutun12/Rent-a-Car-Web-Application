@@ -1,0 +1,68 @@
+﻿@model RentACar.Controllers.PregledDostavaViewModel
+
+@{
+    ViewData["Title"] = "Pregled Dostava";
+}
+
+<h2>Pending deliveries</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Adress</th>
+            <th>Pickup Date </th>
+            <th>Return Date</th>
+            <th>Total price</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var dostava in Model.PendingDostave)
+        {
+            <tr>
+                <td>@dostava.Id</td>
+                <td>@dostava.Adresa</td>
+                <td>@dostava.Narudzba?.DatumPreuzimanja.ToString("dd.MM.yyyy HH:mm")</td>
+                <td>@dostava.Narudzba?.DatumPovratka.ToString("dd.MM.yyyy HH:mm")</td>
+                <td>@dostava.Narudzba?.Iznos</td>
+                <td>
+                    <form asp-action="PrihvatiDostavu" method="post">
+                        <input type="hidden" name="id" value="@dostava.Id" />
+                        <button type="submit" class="btn btn-success">Accept</button>
+                    </form>
+                    </td>
+                    <td>
+                    <form asp-action="OdbijDostavu" method="post">
+                        <input type="hidden" name="id" value="@dostava.Id" />
+                        <button type="submit" class="btn btn-danger">Decline</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<h2>Accepted deliveries</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Adress</th>
+            <th>Delievry date</th>
+            <th>Return Date</th>
+            <th>Total amount</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var dostava in Model.AcceptedDostave)
+        {
+            <tr>
+                <td>@dostava.Id</td>
+                <td>@dostava.Adresa</td>
+                <td>@dostava.Narudzba?.DatumPreuzimanja.ToString("dd.MM.yyyy HH:mm")</td>
+                <td>@dostava.Narudzba?.DatumPovratka.ToString("dd.MM.yyyy HH:mm")</td>
+                <td>@dostava.Narudzba?.Iznos $</td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+This file is used by the publish/package process of your Web project. You can customize the behavior of this process
+by editing this MSBuild file. In order to learn more about this please visit https://go.microsoft.com/fwlink/?LinkID=208121. 
+-->
+<Project>
+  <PropertyGroup>
+    <TimeStampOfAssociatedLegacyPublishXmlFile />
+    <EncryptedPassword>AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAFAjUJ2bPeUWM/vQkJgcN2AAAAAACAAAAAAAQZgAAAAEAACAAAABaO7edYJZsg+dmovNYpe92d//gGWhlGgW2farMUteo3QAAAAAOgAAAAAIAACAAAADAVSaxvhxAuBaaMnY/7mwI11AENyk3LOwqZWP0atX42yAAAABU/Wp7qfPWQ9dYC2BLUSvxf2L6HPqbRQM2fqvZ4swTf0AAAABua1SZXdr6RD5fDWOAfdWwlBjD0bCZSpiJrazDo+H447bF412G+kCkKmUwri+DZyxLWmwBrxbdCwUDmEwMDn3s</EncryptedPassword>
+    <History>True|2024-06-11T12:24:59.0647239Z;</History>
+    <LastFailureDetails />
+  </PropertyGroup>
+  <ItemGroup>
+    <DestinationConnectionStrings Include="DefaultConnection">
+      <Value>Data Source=SQL8010.site4now.net%3bInitial Catalog=db_aa9839_ooad22024%3bUser Id=db_aa9839_ooad22024_admin%3bPassword=ooad2024</Value>
+    </DestinationConnectionStrings>
+  </ItemGroup>
+</Project>

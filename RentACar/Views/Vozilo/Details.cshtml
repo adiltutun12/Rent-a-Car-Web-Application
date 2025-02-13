@@ -1,0 +1,429 @@
+﻿@model RentACar.Models.DetaljiVozilaViewModel
+
+@{
+    ViewData["Title"] = "Car Details";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"]</title>
+    <link rel="stylesheet" href="~/css/styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            color: #343a40;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .car-image {
+            width: 100%;
+            max-width: 400px;
+            height: auto;
+            display: block;
+            margin: 20px auto;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        th, td {
+            padding: 10px;
+            border-bottom: 1px solid #dee2e6;
+        }
+
+        th {
+            background-color: #f8f9fa;
+            font-weight: bold;
+            text-align: left;
+        }
+
+        .reservation-form {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        input[type="datetime-local"],
+        select {
+            width: 100%;
+            padding: 8px;
+            margin-top: 6px;
+            margin-bottom: 16px;
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+
+            button:hover {
+                background-color: #0056b3;
+            }
+
+        #paymentMethodContainer {
+            display: flex;
+            flex-direction: column;
+        }
+
+        #deliveryOption {
+            display: none;
+        }
+
+        .availability {
+            font-weight: bold;
+        }
+
+        .available {
+            color: green;
+        }
+
+        .not-available {
+            color: red;
+        }
+
+        .toast {
+            position: fixed;
+            top: 20px; /* Promenite ovu vrednost po potrebi */
+            right: 20px;
+            z-index: 9999; /* Postavljanje z-index-a kako bi bili iznad ostalih elemenata */
+            display: flex;
+            align-items: center;
+            padding: 12px 20px;
+            border-radius: 8px;
+            font-family: Arial, sans-serif;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: opacity 0.3s ease;
+        }
+
+            .toast.error {
+                background-color: lightpink;
+                color: #c7254e; /* Boja teksta za grešku */
+            }
+
+            .toast.success {
+                background-color: lightgreen;
+                color: #228B22; /* Boja teksta za uspjeh */
+            }
+
+            .toast .icon {
+                margin-right: 10px;
+                font-size: 20px;
+            }
+
+            .toast.show {
+                opacity: 1;
+            }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>@ViewData["Title"]</h1>
+        <img src="@Model.Vozilo.Slika" alt="Car Image" class="car-image" />
+        <table>
+            <tr>
+                <td>Manufacturer</td>
+                <td>@Model.Vozilo.Proizvodjac</td>
+            </tr>
+            <tr>
+                <td>Model</td>
+                <td>@Model.Vozilo.Model</td>
+            </tr>
+            <tr>
+                <td>Description</td>
+                <td>@Model.Vozilo.Opis</td>
+            </tr>
+            <tr>
+                <td>Fuel</td>
+                <td>
+                    @if (Model.Vozilo.Gorivo == VrstaGoriva.BENZIN)
+                    {
+                        <text>Petrol</text>
+                    }
+                    else if (Model.Vozilo.Gorivo == VrstaGoriva.DIZEL)
+                    {
+                        <text>Diesel</text>
+                    }
+                    else if (Model.Vozilo.Gorivo == VrstaGoriva.HIBRID)
+                    {
+                        <text>Hybrid</text>
+                    }
+                </td>
+            </tr>
+
+            <tr>
+                <td>Transmission</td>
+                <td>
+                    @if (Model.Vozilo.Transmisija == Transmisija.MANUELNI)
+                    {
+                        <text>Manual</text>
+                    }
+                    else if (Model.Vozilo.Transmisija == Transmisija.AUTOMATIK)
+                    {
+                        <text>Automatic</text>
+                    }
+                </td>
+            </tr>
+
+            <tr>
+                <td>Navigation</td>
+                <td>@(Model.Vozilo.Navigacija ? "Yes" : "No")</td>
+            </tr>
+            @if (Model.Vozilo.Tip == TipVozila.PUTNICKO)
+            {
+
+                if (Model.Vozilo != null)
+                {
+                    <tr>
+                        <td>Type</td>
+                        <td>
+                            @if (Model.Vozilo.PutnickoVozilo_Tip == PutnickiTip.LIMUZINA)
+                            {
+                                <text>Limousine</text>
+                            }
+                            else if (Model.Vozilo.PutnickoVozilo_Tip == PutnickiTip.KARAVAN)
+                            {
+                                <text>Wagon</text>
+                            }
+                            else if (Model.Vozilo.PutnickoVozilo_Tip == PutnickiTip.SUV)
+                            {
+                                <text>SUV</text>
+                            }
+                            else if (Model.Vozilo.PutnickoVozilo_Tip == PutnickiTip.PICKUP)
+                            {
+                                <text>Pickup</text>
+                            }
+                            else if (Model.Vozilo.PutnickoVozilo_Tip == PutnickiTip.KUPE)
+                            {
+                                <text>Coupe</text>
+                            }
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Tempomat</td>
+                        <td>@(Model.Vozilo.Tempomat.HasValue ? (Model.Vozilo.Tempomat.Value ? "Yes" : "No") : "-")</td>
+                    </tr>
+                    <tr>
+                        <td>Number of Seats</td>
+                        <td>@(Model.Vozilo.BrojSjedista.HasValue ? Model.Vozilo.BrojSjedista.Value.ToString() : "-")</td>
+                    </tr>
+                }
+            }
+            else if (Model.Vozilo.Tip == TipVozila.TRANSPORTNO)
+            {
+
+                if (Model.Vozilo != null)
+                {
+                    <tr>
+                        <td>Type</td>
+                        <td>
+                            @if (Model.Vozilo.TransportnoVozilo_Tip == TransportniTip.KAMION)
+                            {
+                                <text>Truck</text>
+                            }
+                            else if (Model.Vozilo.TransportnoVozilo_Tip == TransportniTip.KOMBI)
+                            {
+                                <text>Van</text>
+                            }
+                            else if (Model.Vozilo.TransportnoVozilo_Tip == TransportniTip.SLEPER)
+                            {
+                                <text>Semi-trailer</text>
+                            }
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Load Capacity</td>
+                        <td>@(Model.Vozilo.Nosivost.HasValue ? Model.Vozilo.Nosivost.Value.ToString() : "-")</td>
+                    </tr>
+                    <tr>
+                        <td>Length</td>
+                        <td>@(Model.Vozilo.Duzina.HasValue ? Model.Vozilo.Duzina.Value.ToString() : "-")</td>
+                    </tr>
+                    <tr>
+                        <td>Trailer</td>
+                        <td>@(Model.Vozilo.Prikolica.HasValue ? (Model.Vozilo.Prikolica.Value ? "Yes" : "No") : "-")</td>
+                    </tr>
+                }
+            }
+            <tr>
+                <td>Price for 24 Hours</td>
+                <td>$@Model.Vozilo.Cijena</td>
+            </tr>
+            <tr>
+                <td>Availability</td>
+                <td @if (Model.Rezervacije != null && Model.Rezervacije.Any())
+                {
+                        <ul>
+                        @foreach (var rezervacija in Model.Rezervacije)
+                        {
+                             <li>Not available from @rezervacija.DatumPreuzimanja.ToShortDateString() to @rezervacija.DatumPovratka.ToShortDateString()</li>
+                        }
+                         </ul>
+                }
+                else
+                {
+                    <p>Available</p>
+                }
+                </td>
+            </tr>
+        </table>
+
+        <div class="reservation-form">
+            <h2>Reservation Form</h2>
+            <form method="post" asp-controller="Rezervacija" asp-action="CreateRezervacija">
+                <input type="hidden" name="VoziloId" value="@Model.Vozilo.Id" />
+                <div class="form-group">
+                    <label for="DatumPreuzimanja">Pickup Date and Time:</label>
+                    <input type="datetime-local" id="DatumPreuzimanja" name="DatumPreuzimanja" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="DatumPovratka">Return Date and Time:</label>
+                    <input type="datetime-local" id="DatumPovratka" name="DatumPovratka" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="Dostava">Delivery:</label>
+                    <input type="checkbox" id="Dostava" name="Dostava.Potrebna" onchange="toggleAddressField(); calculateTotalPrice()">
+                </div>
+
+                <div class="form-group" id="paymentMethodContainer">
+                    <label for="VrstaPlacanja">Payment Method:</label>
+                    <select id="VrstaPlacanja" name="VrstaPlacanja">
+                        <option value="KARTICNO">Credit/Debit Card</option>
+                        <option value="POSLOVNICA">At Office</option>
+                        <option value="POUZECEM" id="deliveryOption">Upon Delivery</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="Iznos">Total Price:</label>
+                    <input type="text" id="Iznos" name="Iznos" readonly>
+                </div>
+
+                <div id="addressField" class="form-group" style="display: none;">
+                    <label for="Adresa">Delivery Address:</label>
+                    <input type="text" id="Adresa" name="Dostava.Adresa">
+                </div>
+
+                <button type="submit">Confirm</button>
+            </form>
+        </div>
+        @if (TempData["SuccessMessage"] != null)
+        {
+            <div class="toast success" id="successToast">
+                <span class="icon">✔️</span> @TempData["SuccessMessage"]
+            </div>
+        }
+
+        @if (TempData["ErrorMessage"] != null)
+        {
+            <div class="toast error" id="errorToast">
+                <span class="icon">❌</span> @TempData["ErrorMessage"]
+            </div>
+        }
+
+        <script>
+            function toggleAddressField() {
+                const deliveryChecked = document.getElementById("Dostava").checked;
+                const addressField = document.getElementById("addressField");
+                addressField.style.display = deliveryChecked ? "block" : "none";
+
+                const deliveryOption = document.getElementById("deliveryOption");
+                deliveryOption.style.display = deliveryChecked ? "block" : "none";
+            }
+
+            function calculateTotalPrice() {
+                const pickupDate = new Date(document.getElementById("DatumPreuzimanja").value);
+                const returnDate = new Date(document.getElementById("DatumPovratka").value);
+                const deliveryChecked = document.getElementById("Dostava").checked;
+
+                const pricePerDay = @Model.Vozilo.Cijena;
+                const deliveryPrice = 25;
+
+                if (pickupDate && returnDate) {
+                    const timeDifference = returnDate - pickupDate;
+                    const days = Math.ceil(timeDifference / (1000 * 60 * 60 * 24));
+
+                    let totalPrice = days * pricePerDay;
+                    if (deliveryChecked) {
+                        totalPrice += deliveryPrice;
+                    }
+
+                    document.getElementById("Iznos").value = totalPrice;
+                }
+            }
+
+            document.addEventListener("DOMContentLoaded", function () {
+                const successToast = document.getElementById("successToast");
+                const errorToast = document.getElementById("errorToast");
+
+                if (successToast) {
+                    successToast.classList.add("show");
+                    setTimeout(() => {
+                        successToast.classList.remove("show");
+                    }, 8000);
+                }
+
+                if (errorToast) {
+                    errorToast.classList.add("show");
+                    setTimeout(() => {
+                        errorToast.classList.remove("show");
+                    }, 8000);
+                }
+            });
+
+            document.querySelector("form").addEventListener("submit", function (event) {
+                const isAvailable = @Model.Vozilo.Dostupno;
+
+                if (!isAvailable) {
+                    event.preventDefault();
+                    alert("Vozilo nije dostupno u odabranom terminu.");
+                }
+            });
+
+            document.getElementById("DatumPreuzimanja").addEventListener("change", calculateTotalPrice);
+            document.getElementById("DatumPovratka").addEventListener("change", calculateTotalPrice);
+            document.getElementById("Dostava").addEventListener("change", calculateTotalPrice);
+
+            window.onload = function () {
+                hideToast();
+            };
+        </script>
+
+    </div>
+</body>
+</html>

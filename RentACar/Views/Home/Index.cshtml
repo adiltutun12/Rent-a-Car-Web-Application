@@ -1,0 +1,251 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"] - Rent-a-Car</title>
+    <link rel="stylesheet" href="~/css/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 1rem 0;
+        }
+
+        .navbar .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 1rem;
+        }
+
+            .nav-links a {
+                color: #fff;
+                text-decoration: none;
+                font-weight: 700;
+            }
+
+        .hero {
+            background: url(https://www.cargini.rent/data/public/rotator/cargini-homepage.png) no-repeat center center;
+            background-size: 100%; /* Adjust the percentage to control the size of the background image */
+            color: #fff;
+            text-align: center;
+            padding: 5rem 0;
+        }
+
+            .hero h1 {
+                font-size: 3rem;
+                margin: 0;
+            }
+
+            .hero p {
+                font-size: 1.5rem;
+                margin: 1rem 0;
+            }
+
+            .hero .btn {
+                background-color: #ff5722;
+                color: #fff;
+                padding: 0.75rem 1.5rem;
+                text-decoration: none;
+                font-weight: 700;
+                border-radius: 5px;
+            }
+
+        .services {
+            padding: 4rem 0;
+            text-align: center;
+        }
+
+            .services h2 {
+                font-size: 2.5rem;
+                margin-bottom: 2rem;
+            }
+
+        .service-cards {
+            display: flex;
+            justify-content: space-around;
+        }
+
+        .service-card {
+            background: #f7f7f7;
+            padding: 2rem;
+            border-radius: 10px;
+            width: 30%;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+            .service-card img {
+                width: 100%;
+                border-radius: 10px;
+            }
+
+            .service-card h3 {
+                font-size: 1.5rem;
+                margin-bottom: 1rem;
+            }
+
+            .service-card p {
+                font-size: 1rem;
+                color: #666;
+            }
+
+        footer {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 1rem 0;
+        }
+
+        .custom-button {
+            background-color: #ff5722; /* Narandžasta pozadina */
+            color: white; /* Bela slova */
+            border: none; /* Bez okvira */
+            justify-content: center;
+            align-items: center;
+            width: 100%; /* Širina kao roditelj */
+            max-width: 1200px; /* Maksimalna širina */
+            margin-top: 20px; /* Razmak od vrha */
+        }
+
+        .center-button-container {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start; /* Početak vertikalnog centriranja */
+        }
+    </style>
+</head>
+
+<body>
+    
+    <section id="home" class="hero">
+        <div class="container">
+            <h1>Your Journey Begins Here</h1>
+            <p>Find the perfect car for your trip</p>
+            <a href="@Url.Action("ExploreCars", "Home")" class="btn">Explore Cars</a>
+        </div>
+    </section>
+
+    @if (User.IsInRole("Dostavljac"))
+    {
+        <div class="container center-button">
+            <a href="@Url.Action("PregledDostava", "Dostava")" class="btn custom-button">Pregled dostava</a>
+        </div>
+    }
+
+
+    <section id="services" class="services">
+        <div class="container">
+            <h2>Our Services</h2>
+            <div class="service-cards">
+                <div class="service-card">
+                    <img src="https://images.pexels.com/photos/3764984/pexels-photo-3764984.jpeg" alt="Luxury Cars">
+                    <h3>Luxury Cars</h3>
+                    <p>Experience the best luxury cars at affordable prices.</p>
+                </div>
+                <div class="service-card">
+                    <img src="https://static.vecteezy.com/system/resources/thumbnails/015/257/213/small/happy-family-have-fun-with-their-dog-near-modern-car-outdoors-in-forest-photo.jpg" alt="Family Cars">
+                    <h3>Family Cars</h3>
+                    <p>Spacious and comfortable cars for your family trips.</p>
+                </div>
+                <div class="service-card">
+                    <img src="https://www.losangelestruckinsurance.com/wp-content/uploads/2016/06/Depositphotos_29794459_m-2015-300x200.jpg" alt="Commercial Vehicles">
+                    <h3>Commercial Vehicles</h3>
+                    <p>Reliable and efficient vehicles for your business needs.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <h2>Where to find us?</h2>
+
+    <div style="margin-top: 2%; margin-bottom: 2%">
+        <div id="myMap" style="position:relative;width:1280px;height:400px;"></div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Rent-a-Car. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script type="text/javascript" src="https://www.bing.com/api/maps/mapcontrol?callback=GetMap" async defer></script>
+    <script type="text/javascript">
+        var infobox;
+
+        function GetMap() {
+            var map = new Microsoft.Maps.Map('#myMap', {
+                credentials: 'Apd901yAVqyCHL8MBp5F8umliIy0TRwRC_kGs9hFSjvBtZIiloQrHZRGpDfkYoF8',
+                center: new Microsoft.Maps.Location(43.8563, 18.4131),
+                mapTypeId: Microsoft.Maps.MapTypeId.aerial,
+                zoom: 10
+            });
+
+            infobox = new Microsoft.Maps.Infobox(map.getCenter(), {
+                visible: false
+            });
+            infobox.setMap(map);
+
+            var locations = [
+                {
+                    latitude: 43.8563,
+                    longitude: 18.3959,
+                    title: 'Rent a car',
+                    description: 'Zmaja od Bosne 4'
+                },
+                {
+                    latitude: 43.846356560901135,
+                    longitude: 18.37704658005615,
+                    title: 'Rent a car',
+                    description: 'Safeta Hadzica 2'
+                }
+            ];
+
+            locations.forEach(function (location) {
+                var loc = new Microsoft.Maps.Location(location.latitude, location.longitude);
+                var pin = new Microsoft.Maps.Pushpin(loc);
+                pin.metadata = {
+                    title: location.title,
+                    description: location.description
+                };
+
+                Microsoft.Maps.Events.addHandler(pin, 'click', pushpinClicked);
+                map.entities.push(pin);
+            });
+        }
+
+        function pushpinClicked(e) {
+            if (e.target.metadata) {
+                infobox.setOptions({
+                    location: e.target.getLocation(),
+                    title: e.target.metadata.title,
+                    description: e.target.metadata.description,
+                    visible: true
+                });
+            }
+        }
+    </script>
+</body>
+</html>
